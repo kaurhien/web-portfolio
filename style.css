@@ -1,0 +1,160 @@
+  :root {
+    --penn: #0A1F44;      /* navy blue (primary) */
+    --penn-dark: #061330;
+    --indigo: #3F1D8F;
+    --indigo-deep: #2E1470;
+    --orange: #FF8A1F;
+    --yellow: #FFD60A;
+    --gold: #D4AF37;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100%; }
+  body {
+    background: var(--penn);
+    color: var(--white);
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+  }
+
+  /* ---------- Banner (about 17% of the screen height) ---------- */
+  .banner {
+    height: 11vh;          /* 65% of the previous 17vh */
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 clamp(20px, 5vw, 70px);
+    background: linear-gradient(110deg, var(--penn-dark) 0%, var(--penn) 45%, var(--indigo) 100%);
+    border-bottom: 5px solid var(--gold);
+    position: relative;
+  }
+  .banner::before {           /* small orange / yellow accent stripes */
+    content: "";
+    position: absolute; left: 0; bottom: -5px;
+    width: 160px; height: 5px;
+    background: linear-gradient(90deg, var(--orange), var(--yellow));
+  }
+  .banner h1 {
+    font-size: clamp(1.2rem, 2.8vw, 2rem);
+    letter-spacing: .12em;
+    font-weight: 800;
+    color: var(--white);
+  }
+  .banner h1 span { color: var(--yellow); }
+
+  /* ---------- Pill navigation ---------- */
+  .pill-wrap { display: flex; justify-content: center; margin: 28px 16px 8px; }
+  .pill {
+    display: inline-flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+    background: var(--indigo-deep);
+    border: 2px solid var(--gold);
+    border-radius: 999px;
+    padding: 6px;
+  }
+  .pill button {
+    font: inherit; font-weight: 600; letter-spacing: .04em;
+    background: transparent; color: var(--white);
+    border: 0; border-radius: 999px;
+    padding: 10px 26px; cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .pill button:hover { background: rgba(255, 214, 10, .18); }
+  .pill button.active {
+    background: linear-gradient(90deg, var(--yellow), var(--orange));
+    color: var(--penn);
+  }
+
+  /* ---------- Page layout ---------- */
+  main { width: 82%; max-width: 1400px; padding: 28px 0 70px; margin: 0 auto; }   /* 9% empty margin on each side */
+  .page { display: none; animation: fade .35s ease; }
+  .page.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .profile {
+    display: grid;
+    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);   /* photo at 70% of 600px */
+    gap: 32px;
+    align-items: start;
+  }
+  .stack { display: flex; flex-direction: column; gap: 24px; }
+  .stack .name-box { grid-template-columns: 1fr; max-width: 420px; }
+
+  /* Photo space 600 x 600 */
+  .photo {
+    position: relative;
+    width: 100%; max-width: 420px; aspect-ratio: 1 / 1;
+    border: 4px solid var(--gold);
+    border-radius: 18px;
+    overflow: hidden;
+    background: repeating-linear-gradient(45deg, var(--indigo-deep), var(--indigo-deep) 14px, var(--indigo) 14px, var(--indigo) 28px);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; color: var(--yellow); font-weight: 600; padding: 16px;
+  }
+  .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .photo small { display: block; color: var(--white); font-weight: 400; opacity: .85; }
+
+  /* 2-row name box */
+  .name-box { display: grid; grid-template-rows: auto auto; gap: 14px; }
+  .name-box .row {
+    border-radius: 14px; padding: 16px 18px;
+    background: var(--indigo);
+    border-left: 6px solid var(--orange);
+  }
+  .name-box .row:first-child { font-size: 1.35rem; font-weight: 700; color: var(--yellow); }
+  .name-box .row:last-child { border-left-color: var(--gold); font-size: 1.05rem; }
+
+  /* Rounded text box */
+  .round-box {
+    background: var(--indigo);
+    border: 3px solid var(--gold);
+    border-radius: 26px;
+    padding: clamp(20px, 2.5vw, 34px);
+    font-size: 1.05rem;
+    text-align: justify;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .35);
+  }
+  .round-box p + p { margin-top: 18px; }
+  .round-box a { color: var(--yellow); text-decoration: none; border-bottom: 1px dotted var(--yellow); }
+  .round-box a:hover { color: var(--orange); }
+  .contact-list { list-style: none; margin-top: 22px; text-align: left; }
+  .contact-list li { padding: 5px 0; }
+  .contact-list b { color: var(--orange); text-transform: capitalize; }
+
+  /* ---------- About: 2 x 4 text grid, no borders ---------- */
+  .info-grid {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 28px;
+    row-gap: 56px;                 /* mid-size margin between the two rows */
+  }
+  .info-grid h3 {
+    color: var(--yellow); font-size: 1.05rem; letter-spacing: .06em;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .info-grid .group-label {
+    grid-column: 1 / -1; color: var(--orange); font-size: 1.3rem; font-weight: 700;
+    margin: 0 0 -36px;
+  }
+  .info-grid .sub { color: var(--gold); font-size: .95rem; display: block; margin-top: 4px; }
+
+  /* ---------- Portfolio pairs ---------- */
+  .pair { max-width: 1250px; margin: 0 auto 64px; }
+  .pair-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .pair-photos .photo { max-width: none; }
+  .pair-title { color: var(--yellow); font-size: 1.4rem; margin-bottom: 10px; }
+
+  footer { text-align: center; padding: 22px; color: var(--gold); font-size: .9rem; border-top: 1px solid rgba(212,175,55,.35); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 800px) {
+    .profile { grid-template-columns: 1fr; }
+    .photo { margin: 0 auto; }
+    .info-grid { grid-template-columns: repeat(2, 1fr); }
+    .pair-photos { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .pill button { padding: 9px 16px; }
+  }
